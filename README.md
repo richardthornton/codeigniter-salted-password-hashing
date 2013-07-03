@@ -5,7 +5,7 @@
 
 > "If you're a web developer, you've probably had to make a user account system. The most important aspect of a user account system is how user passwords are protected. User account databases are hacked frequently, so you absolutely must do something to protect your users' passwords if your website is ever breached. The best way to protect passwords is to employ **salted password hashing**."
 
-This library is a direct port from the Salted Password Hashing article at [CrackStation](http://crackstation.net/hashing-security.htm). If you only read ONE page about password security, this is a great one. It has an amazing amount detail that's easy to digest.
+This library is a direct port from the Salted Password Hashing article at [CrackStation](http://crackstation.net/hashing-security.htm). If you only read ONE page about password security, this is a great one. It has an amazing amount detail that's kind of easy to digest. Seriously, READ IT!
 
 I wanted to build my own CI authentication libraries, but this looked too good to pass up!
 
@@ -33,7 +33,7 @@ $this->db->insert('users', $data);
 #### Grab the saved password
 
 ```
-$email = $_POST['email']; // form submissions
+$email = $_POST['email'];
 $pwd = $_POST['pwd'];
 
 $this->db->select('password');
@@ -47,11 +47,13 @@ $row = $query->row();
 ```
 if ($this->password->validate_password($pwd, $row->password))
 {
-	// sweet
+	// sweet, everything looks good
 }
 else
 {
-	// doh!
+	// doh! send them back
+	// only tell the user the "username or password was incorrect"
+	// you don't want them knowing they've found a user account!
 }
 ```
 
