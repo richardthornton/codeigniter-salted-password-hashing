@@ -15,28 +15,18 @@ I wanted to build my own CI authentication libraries, but this looked too good t
 2. Load the library when you need to work with a password (probably don't need to autoload): `$this->load->library('password');`
 3. When saving a password:
   1. Create the hash
-
 ```
-<?php
 $pwd = $_POST['pwd'];
 $hash = $this->password->create_hash($pwd);
-?>
 ```
-
   2. Save to the db
-
 ```
-<?php
 $data = array('name' => $name, 'email' => $email, 'password' => $hash);
 $this->db->insert('users', $data);
-?>
 ```
-
 4. When validating:
   1. Grab the password from the db:
-
 ```
-<?php
 $email = $_POST['email']; // form submissions
 $pwd = $_POST['pwd'];
 
@@ -44,13 +34,9 @@ $this->db->select('password');
 $this->db->where('email', $email);
 $query = $this->db->get('users');
 $row = $query->row();
-?>
 ```
-
   2. Check if it's valid:
-
 ```
-<?php
 if ($this->password->validate_password($pwd, $row->password))
 {
 	// sweet
@@ -59,7 +45,6 @@ else
 {
 	// doh!
 }
-?>
 ```
 
 I doubt this is the perfect way of handing this; I've never saved raw passwords but I'm guilty of the good old `md5()` basics... This will certainly be much more secure!
