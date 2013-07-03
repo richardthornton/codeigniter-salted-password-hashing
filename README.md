@@ -3,7 +3,7 @@
 
 ### Introduction
 
-> "If you're a web developer, you've probably had to make a user account system. The most important aspect of a user account system is how user passwords are protected. User account databases are hacked frequently, so you absolutely must do something to protect your users' passwords if your website is ever breached. The best way to protect passwords is to employ salted password hashing."
+> "If you're a web developer, you've probably had to make a user account system. The most important aspect of a user account system is how user passwords are protected. User account databases are hacked frequently, so you absolutely must do something to protect your users' passwords if your website is ever breached. The best way to protect passwords is to employ **salted password hashing**."
 
 This library is a direct port from the Salted Password Hashing article at [CrackStation](http://crackstation.net/hashing-security.htm). If you only read ONE page about password security, this is a great one. It has an amazing amount detail that's easy to digest.
 
@@ -15,18 +15,23 @@ I wanted to build my own CI authentication libraries, but this looked too good t
 2. Load the library when you need to work with a password (probably don't need to autoload): `$this->load->library('password');`
 3. When saving a password:
   1. Create the hash
-```php
+
+```
 $pwd = $_POST['pwd'];
 $hash = $this->password->create_hash($pwd);
 ```
+
   2. Save to the db
-```php
+
+```
 $data = array('name' => $name, 'email' => $email, 'password' => $hash);
 $this->db->insert('users', $data);
 ```
+
 4. When validating:
   1. Grab the password from the db:
-```php
+
+```
 $email = $_POST['email']; // form submissions
 $pwd = $_POST['pwd'];
 
@@ -35,8 +40,10 @@ $this->db->where('email', $email);
 $query = $this->db->get('users');
 $row = $query->row();
 ```
+
   2. Check if it's valid:
-```php
+
+```
 if ($this->password->validate_password($pwd, $row->password))
 {
 	// sweet
