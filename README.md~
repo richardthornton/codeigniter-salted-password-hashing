@@ -25,7 +25,12 @@ $hash = $this->password->create_hash($pwd);
 #### Save to the DB
 
 ```
-$data = array('name' => $name, 'email' => $email, 'password' => $hash);
+$data = array
+(
+	'name' => $name,
+	'email' => $email,
+	'password' => $hash
+);
 $this->db->insert('users', $data);
 ```
 
@@ -48,6 +53,7 @@ $row = $query->row();
 if ($this->password->validate_password($pwd, $row->password))
 {
 	// sweet, everything looks good
+	// set up sessions etc etc...
 }
 else
 {

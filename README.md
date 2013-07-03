@@ -15,44 +15,36 @@ I wanted to build my own CI authentication libraries, but this looked too good t
 2. Load the library when you need to work with a password (probably don't need to autoload): `$this->load->library('password');`
 
 ### Saving a password
-#### Create the hash
+#### Create the hash and save to the DB
+
+This code is a pretty quick mockup - you'd want to be checking the data was submitted correctly first.
 
 ```
-$pwd = $_POST['pwd'];
-$hash = $this->password->create_hash($pwd);
-```
+$hash = $this->password->create_hash($_POST['pwd']);
 
-#### Save to the DB
-
-```
 $data = array
 (
 	'name' => $name,
 	'email' => $email,
 	'password' => $hash
 );
+
 $this->db->insert('users', $data);
 ```
 
 ### Validating a login
-#### Grab the saved password
+#### Grab the saved password and check it's valid
 
 ```
-$email = $_POST['email'];
-$pwd = $_POST['pwd'];
-
 $this->db->select('password');
-$this->db->where('email', $email);
+$this->db->where('email', $_POST['email']);
 $query = $this->db->get('users');
 $row = $query->row();
-```
 
-#### Check it's valid
-
-```
-if ($this->password->validate_password($pwd, $row->password))
+if ($this->password->validate_password($_POST['pwd'], $row->password))
 {
 	// sweet, everything looks good
+	// set up sessions etc etc...
 }
 else
 {
