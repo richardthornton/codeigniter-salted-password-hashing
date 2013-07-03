@@ -25,7 +25,12 @@ $hash = $this->password->create_hash($pwd);
 #### Save to the DB
 
 ```
-$data = array('name' => $name, 'email' => $email, 'password' => $hash);
+$data = array
+(
+	'name' => $name,
+	'email' => $email,
+	'password' => $hash
+);
 $this->db->insert('users', $data);
 ```
 

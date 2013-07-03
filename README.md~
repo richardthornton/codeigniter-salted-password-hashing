@@ -33,7 +33,7 @@ $this->db->insert('users', $data);
 #### Grab the saved password
 
 ```
-$email = $_POST['email']; // form submissions
+$email = $_POST['email'];
 $pwd = $_POST['pwd'];
 
 $this->db->select('password');
